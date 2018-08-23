@@ -1,0 +1,40 @@
+apply plugin: "java"
+apply plugin: "application"
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+mainClassName = "kr.ayukawa.embeddservletcontainer.tomcat.Application"
+
+sourceSets {
+	main {
+		java {
+			srcDir "src/main/webapp"
+			include "src/main/webapp/**/*.*"
+		}
+	}
+}
+
+def version = [
+	tomcat: "8.5.2"
+]
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// servlet container core (Tomcat core)
+	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: "${version.tomcat}"
+	// tomcat jasper (JSP compiler) (Tomcat core)
+	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version: "${version.tomcat}"
+	// Expression Language engine??? (Tomcat core)
+	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-el', version: "${version.tomcat}"
+	// Tomcat WebSocket (Tomcat core)
+	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: "${version.tomcat}"
+	// Tomcat JULI (Java logging that Tomcat ver.)
+	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-logging-juli', version: "${version.tomcat}"
+	// log4j for tomcat
+	compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-logging-log4j', version: "${version.tomcat}"
+}
