@@ -1,13 +1,10 @@
 package kr.ayukawa.embeddservletcontainer.tomcat;
 
 import org.apache.catalina.Context;
-import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 
 import java.io.File;
 
-// http://zetcode.com/web/embeddedtomcat/
-// https://www.slipp.net/wiki/pages/viewpage.action?pageId=16711743
 public class Application {
 	public static final String WEBAPP_DIR = "webapp/";
 
