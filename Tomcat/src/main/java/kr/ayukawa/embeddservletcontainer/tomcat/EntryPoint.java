@@ -5,7 +5,7 @@ import org.apache.catalina.startup.Tomcat;
 
 import java.io.File;
 
-public class Application {
+public class EntryPoint {
 	public static final String WEBAPP_DIR = "webapp/";
 
 	public static void main(String[] args) throws Exception {
