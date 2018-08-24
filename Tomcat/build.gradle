@@ -10,6 +10,7 @@ mainClassName = "kr.ayukawa.embeddservletcontainer.tomcat.Application"
 sourceSets {
 	main {
 		java {
+			srcDir "src/main/java"
 			srcDir "src/main/webapp"
 			include "src/main/webapp/**/*.*"
 		}
