@@ -9,22 +9,16 @@ import org.apache.catalina.webresources.StandardRoot;
 import org.apache.tomcat.util.scan.StandardJarScanner;
 
 import java.io.File;
+import java.util.Optional;
 
 public class EntryPoint {
 	public static final String WEBAPP_DIR = "webapp/";
 
 	public static void main(String[] args) throws Exception {
-		String portNo = System.getProperty("tomcat.port");
-		int port;
-
-		try {
-			port = Integer.valueOf(portNo);
-		} catch(Exception e) {
-			port = 8080;				// default port
-		}
+		Optional<String> port = Optional.ofNullable(System.getProperty("tomcat.port"));
 
 		Tomcat tomcat = new Tomcat();
-		tomcat.setPort(port);
+		tomcat.setPort(Integer.valueOf(port.orElse("8080")));
 
 		// ContextPath 등록
 		Context ctx = tomcat.addWebapp("/", new File(WEBAPP_DIR).getAbsolutePath());
