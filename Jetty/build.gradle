@@ -1,0 +1,37 @@
+apply plugin: "java"
+apply plugin: "application"
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+mainClassName = "kr.ayukawa.embeddservletcontainer.jetty.EntryPoint"
+
+jar {
+	manifest {
+		attributes "Main-Class": mainClassName
+	}
+	from {
+		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir "src/main/java"
+		}
+	}
+}
+
+def version = [
+		tomcat: "8.5.2"
+]
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.11.v20180605'
+}
