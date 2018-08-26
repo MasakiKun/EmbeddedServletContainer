@@ -16,16 +16,8 @@ jar {
 	}
 }
 
-sourceSets {
-	main {
-		java {
-			srcDir "src/main/java"
-		}
-	}
-}
-
-def version = [
-		tomcat: "8.5.2"
+def versions = [
+	"jetty": "9.4.11.v20180605"
 ]
 
 repositories {
@@ -33,5 +25,5 @@ repositories {
 }
 
 dependencies {
-	compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.11.v20180605'
+	compile group: 'org.eclipse.jetty', name: 'jetty-server', version: "${versions.jetty}"
 }
