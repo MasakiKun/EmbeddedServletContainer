@@ -1,14 +1,10 @@
 package kr.ayukawa.embeddservletcontainer.tomcat;
 
 import org.apache.catalina.Context;
-import org.apache.catalina.WebResource;
-import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.startup.Tomcat;
-import org.apache.catalina.webresources.DirResourceSet;
-import org.apache.catalina.webresources.StandardRoot;
-import org.apache.tomcat.util.scan.StandardJarScanner;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Optional;
 
 public class EntryPoint {
@@ -17,8 +13,20 @@ public class EntryPoint {
 	public static void main(String[] args) throws Exception {
 		Optional<String> port = Optional.ofNullable(System.getProperty("tomcat.port"));
 
+		File tomcatWorkingDir = File.createTempFile("tomcat.", port.orElse(".8080"));
+		if(tomcatWorkingDir.exists()) {
+			tomcatWorkingDir.delete();
+			tomcatWorkingDir.mkdir();
+			tomcatWorkingDir.deleteOnExit();
+		}
+		System.out.println(tomcatWorkingDir.getAbsoluteFile());
+
 		Tomcat tomcat = new Tomcat();
 		tomcat.setPort(Integer.valueOf(port.orElse("8080")));
+		tomcat.setBaseDir(tomcatWorkingDir.getAbsolutePath());
+
+		URL webappUrl = EntryPoint.class.getResource("/webapp");
+		File webapp = new File(webappUrl.toURI());
 
 		// ContextPath 등록
 		Context ctx = tomcat.addWebapp("/", new File(WEBAPP_DIR).getAbsolutePath());
